@@ -29,7 +29,7 @@ namespace DataHelpers.Data.DataAccess.Lookups
                     {
                         Id = f.Id,
                         DisplayMember = f.ProjectName,
-                        Entity = "Project"
+                        Entity = nameof(Project)
 
                     })
                     .ToListAsync();
