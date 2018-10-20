@@ -7,5 +7,6 @@ namespace DataHelpers.Data.DataAccess.Interfaces
     public interface IProjectLookupDataService
     {
         Task<IEnumerable<LookupItem>> GetProjectLookupAsync();
+        IEnumerable<LookupItem> GetRelatedEntites(int projectId);
     }
 }

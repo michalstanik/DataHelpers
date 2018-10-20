@@ -64,8 +64,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Services\ItemProvider.cs" />
+    <Compile Include="ViewModels\ProjectDetailViewModel.cs" />
     <Compile Include="ViewModels\ProjectNavigationViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\ProjectWorkspaceViewModel.cs" />
     <Compile Include="Views\ProjectNavigationView.xaml.cs">
       <DependentUpon>ProjectNavigationView.xaml</DependentUpon>
     </Compile>
