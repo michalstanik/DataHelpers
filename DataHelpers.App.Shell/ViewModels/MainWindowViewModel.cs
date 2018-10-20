@@ -1,10 +1,12 @@
-﻿using Prism.Mvvm;
+﻿using DataHelpers.App.Infrastructure.Base;
+using DataHelpers.App.Infrastructure.Constants;
+using Prism.Commands;
 
 namespace DataHelpers.App.Shell.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
+    public class MainWindowViewModel : ViewModelBase
     {
-        private string _title = "Prism Application";
+        private string _title = "Data Helpers App";
         public string Title
         {
             get { return _title; }
@@ -13,7 +15,14 @@ namespace DataHelpers.App.Shell.ViewModels
 
         public MainWindowViewModel()
         {
+            NavigateCommand = new DelegateCommand<string>(Navigate);
+        }
 
+        public DelegateCommand<string> NavigateCommand { get; set; }
+
+        private void Navigate(string navigationPath)
+        {
+            RegionManager.RequestNavigate(RegionNames.MainRegion, navigationPath);
         }
     }
 }
