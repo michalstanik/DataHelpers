@@ -60,10 +60,12 @@
     <Compile Include="Events\AfterDetailClosedEvent.cs" />
     <Compile Include="Events\AfterDetailDeletedEvent.cs" />
     <Compile Include="Events\AfterDetailSavedEvent.cs" />
+    <Compile Include="Events\OpenDetailViewEvent.cs" />
     <Compile Include="Interfaces\IDetailViewModel.cs" />
     <Compile Include="Interfaces\IMessageDialogService.cs" />
     <Compile Include="Interfaces\INavigationViewModel.cs" />
     <Compile Include="Interfaces\IProjectDetailViewModel.cs" />
+    <Compile Include="Interfaces\IProjectWorkspaceListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

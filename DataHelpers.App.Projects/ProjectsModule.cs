@@ -34,6 +34,7 @@ namespace DataHelpers.App.Projects
             containerRegistry.RegisterInstance<INavigationViewModel>(_container.Resolve<ProjectNavigationViewModel>());
 
             containerRegistry.Register<IProjectDetailViewModel, ProjectDetailViewModel>();
+            containerRegistry.Register<IProjectWorkspaceListViewModel, ProjectWorkspaceListViewModel>();
             containerRegistry.Register<object, ProjectsView>("ProjectsView");
         }
 

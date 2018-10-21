@@ -22,9 +22,9 @@ namespace DataHelpers.Data.DataAccess.Repository
                 .SingleAsync(p => p.Id == projectId);
         }
 
-        public IEnumerable<ProjectWorkspace> GetProjectWorkspacesForProject(int projectId)
+        public async Task<IEnumerable<ProjectWorkspace>> GetProjectWorkspacesForProject(int projectId)
         {
-            return Context.ProjectWorkspaces.Where(s => s.ProjectId == projectId);
+            return await Context.ProjectWorkspaces.Where(s => s.ProjectId == projectId).ToListAsync();
         }
 
         public void RemoveProjectComponent(ProjectComponent model)

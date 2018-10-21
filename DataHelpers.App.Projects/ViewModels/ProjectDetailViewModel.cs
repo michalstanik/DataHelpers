@@ -36,7 +36,6 @@ namespace DataHelpers.App.Projects.ViewModels
 
             RemoveComponentCommand = new DelegateCommand(OnRemoveComponentExecute, OnRemoveComponentCanExecute);
             AddComponentCommand = new DelegateCommand(OnAddComponentExecute);
-            SelectPath = new DelegateCommand(SelectFileExecute);
 
             ProjectTypes = new ObservableCollection<LookupItem>();
             ProjectComponents = new ObservableCollection<ProjectComponentWrapper>();
@@ -54,59 +53,6 @@ namespace DataHelpers.App.Projects.ViewModels
             InitializeProjectComponents(project.ProjectComponents);
 
             await LoadProjectTypesLookupAsync();
-        }
-
-        private async void SelectFileExecute()
-        {
-            FolderBrowserDialog _openFileDialog = new FolderBrowserDialog();
-
-            DialogResult result = _openFileDialog.ShowDialog();
-
-            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(_openFileDialog.SelectedPath))
-            {
-                var files = Directory.GetFiles(_openFileDialog.SelectedPath);
-
-                List<string> extensionsList = new List<string>();
-
-                foreach (var file in files)
-                {
-                    var extension = Path.GetExtension(file);
-                    extensionsList.Add(extension);
-                }
-
-                var distinctExtensins = extensionsList.Distinct();
-
-                var dialog = await _messageDialogService
-                    .ShowOkCancelDialogAsync($"You selected path {_openFileDialog.SelectedPath}, " +
-                    $"which contain {files.Count()} files in {distinctExtensins.Count()} different types. " +
-                    $"Do you want to continue with selection?", "Question");
-
-                if (dialog == MessageDialogResult.OK)
-                {
-                    SavePathInProject(_openFileDialog.SelectedPath);
-                }
-            }
-        }
-
-        private void SavePathInProject(string selectedPath)
-        {
-            var existingWorkspacesForProject
-                = _projectRepository.GetProjectWorkspacesForProject(Project.Id);
-
-            if (existingWorkspacesForProject.Where(p => p.WorkspacePath == selectedPath).Count() == 0)
-            {
-                var newWorkspace = new ProjectWorkspaceWrapper(new ProjectWorkspace());
-                newWorkspace.WorkspacePath = selectedPath;
-
-                Project.Model.ProjectWorkspaces.Add(newWorkspace.Model);
-                //TODO - Integrate with whole model validations
-                OnSaveExecute();
-            }
-            else
-            {
-                //TODO: Implement info for user, that path already exists
-            }
-
         }
 
         protected override async void OnDeleteExecute()

@@ -6,15 +6,42 @@
              xmlns:local="clr-namespace:DataHelpers.App.Projects.Views"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:viewModel="clr-namespace:DataHelpers.App.Projects.ViewModels"
              xmlns:inf="clr-namespace:DataHelpers.App.Infrastructure.Base;assembly=DataHelpers.App.Infrastructure"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <inf:UserControlViewBase.Resources>
+        <DataTemplate DataType="{x:Type viewModel:ProjectDetailViewModel}">
+            <local:ProjectDetailView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ProjectWorkspaceListViewModel}">
+            <local:ProjectWorkspaceListView/>
+        </DataTemplate>
+    </inf:UserControlViewBase.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
         <local:ProjectNavigationView DataContext="{Binding ProjectNavigationViewModel}"/>
-        
+        <TabControl Grid.Column="1" ItemsSource="{Binding DetailViewModels}" SelectedItem="{Binding SelectedDetailViewModel, Mode=TwoWay}">
+            <!--<TabControl.ItemContainerStyle>
+                <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Style>
+            </TabControl.ItemContainerStyle>-->
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Title}"/>
+                        <TextBlock Text="*" Visibility="{Binding HasChanges, Converter={StaticResource booleanToVisibilityConverter}}"/>
+                        <!--<Button Command="{Binding CloseDetailViewCommand}" Style="{StaticResource ChromelessButtonStyle}"
+                                            VerticalContentAlignment="Top" Margin="2 0 2 2" Content="x" FontSize="20"/>-->
+                    </StackPanel>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
     </Grid>
 </inf:UserControlViewBase>

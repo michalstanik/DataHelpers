@@ -5,7 +5,6 @@ using DataHelpers.App.Infrastructure.Base;
 using DataHelpers.App.Infrastructure.Constants;
 using DataHelpers.App.Infrastructure.Interfaces;
 using DataHelpers.App.Infrastructure.ViewModels;
-using DataHelpers.App.Projects.Services;
 using DataHelpers.Data.DataAccess.Interfaces;
 using DataHelpers.Data.DataModel.Projects;
 

@@ -64,7 +64,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Services\ItemProvider.cs" />
     <Compile Include="ViewModels\ProjectComponentsListViewModel.cs" />
     <Compile Include="ViewModels\ProjectComponentViewModel.cs" />
     <Compile Include="ViewModels\ProjectDetailViewModel.cs" />
@@ -80,6 +79,9 @@
     </Compile>
     <Compile Include="Views\ProjectsView.xaml.cs">
       <DependentUpon>ProjectsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectWorkspaceListView.xaml.cs">
+      <DependentUpon>ProjectWorkspaceListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wrapper\ProjectComponentWrapper.cs" />
     <Compile Include="Wrapper\ProjectWorkspaceWrapper.cs" />
@@ -104,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProjectsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProjectWorkspaceListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
