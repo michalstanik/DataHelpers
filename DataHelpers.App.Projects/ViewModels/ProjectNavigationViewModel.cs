@@ -42,15 +42,35 @@ namespace DataHelpers.App.Projects.ViewModels
 
                 if(relatedEntities != null)
                 {
+                    var groupItemWorkspace = new NavigationDirectoryItemViewModel
+                        (item.Id, $"Workspaces",
+                        nameof(ProjectWorkspaceListViewModel));
+
+                    tempProject.AddDirItem(groupItemWorkspace);
+
+                    var groupItemComponents = new NavigationDirectoryItemViewModel
+                        (item.Id, $"Components",
+                        nameof(ProjectComponentsListViewModel));
+
+                    tempProject.AddDirItem(groupItemComponents);
+
                     foreach (var relatedEntitiesItem in relatedEntities)
                     {
                         switch (relatedEntitiesItem.Entity)
                         {
                             case nameof(ProjectWorkspace):
-                                tempProject.AddDirItem(new NavigationDirectoryItemViewModel
+                                groupItemWorkspace.AddDirItem(new NavigationDirectoryItemViewModel
                                     (relatedEntitiesItem.Id,
                                     relatedEntitiesItem.DisplayMember,
                                     nameof(ProjectWorkspaceViewModel)));
+                             
+                                break;
+
+                            case nameof(ProjectComponent):
+                                groupItemComponents.AddDirItem(new NavigationDirectoryItemViewModel
+                                    (relatedEntitiesItem.Id,
+                                    relatedEntitiesItem.DisplayMember,
+                                    nameof(ProjectComponentViewModel)));
                                 break;
 
                             default:

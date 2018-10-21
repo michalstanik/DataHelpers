@@ -11,6 +11,8 @@ namespace DataHelpers.Data.DataModel
         public string Entity { get; set; }
 
         public IEnumerable<LookupItem> RelatedEntities { get; set; }
+
+        public string Image { get; set; }
     }
 
 

@@ -56,6 +56,23 @@ namespace DataHelpers.Data.DataAccess.Lookups
                         });
                     }
                 }
+
+                var projectComponents = ctx.ProjectComponents.Where(p => p.ProjectId == projectId).ToList();
+
+                if (projectComponents.Count() != 0)
+                {
+                    foreach (var item in projectComponents)
+                    {
+                        relatedEntites.Add(new LookupItem
+                        {
+                            Id = item.Id,
+                            DisplayMember = item.ComponentName,
+                            Entity = nameof(ProjectComponent),
+                            RelatedEntities = null
+                        });
+                    }
+                }
+
             }
 
             return  relatedEntites;
