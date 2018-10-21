@@ -4,8 +4,9 @@ namespace DataHelpers.App.Infrastructure.ViewModels
 {
     public class NavigationDirectoryItemViewModel : NavigationItemViewModel
     {
-        public NavigationDirectoryItemViewModel(int id, string displayMember, string detailViewModelName) 
-            : base(id, displayMember, detailViewModelName)
+        public NavigationDirectoryItemViewModel(int id, string displayMember, string detailViewModelName
+            ,string image = null) 
+            : base(id, displayMember, detailViewModelName, image)
         {
             Items = new List<NavigationDirectoryItemViewModel>();
         }

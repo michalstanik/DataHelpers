@@ -52,6 +52,7 @@
     <Compile Include="Base\MetroWindowViewBase.cs" />
     <Compile Include="Base\UserControlViewBase.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
+    <Compile Include="Constants\IconNames.cs" />
     <Compile Include="Constants\RegionNames.cs" />
     <Compile Include="Interfaces\INavigationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

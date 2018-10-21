@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using DataHelpers.App.Infrastructure.Base;
+using DataHelpers.App.Infrastructure.Constants;
 using DataHelpers.App.Infrastructure.Interfaces;
 using DataHelpers.App.Infrastructure.ViewModels;
 using DataHelpers.App.Projects.Services;
@@ -44,7 +45,8 @@ namespace DataHelpers.App.Projects.ViewModels
                 {
                     var groupItemWorkspace = new NavigationDirectoryItemViewModel
                         (item.Id, $"Workspaces",
-                        nameof(ProjectWorkspaceListViewModel));
+                        nameof(ProjectWorkspaceListViewModel),
+                        IconNames.EmoticonCool);
 
                     tempProject.AddDirItem(groupItemWorkspace);
 

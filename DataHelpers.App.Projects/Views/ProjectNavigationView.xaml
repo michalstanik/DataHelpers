@@ -13,8 +13,8 @@
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type model:NavigationDirectoryItemViewModel}" ItemsSource="{Binding Path=Items}">
                     <StackPanel Orientation="Horizontal">
-                        <iconPacks:PackIconMaterial Kind="{Binding Image}" />
-                        <TextBlock Text="{Binding Path=DisplayMember}" />
+                        <iconPacks:PackIconMaterial Kind="{Binding Image}" Margin="5,0,0,0"/>
+                        <TextBlock Margin="10,0,0,0" Text="{Binding Path=DisplayMember}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>

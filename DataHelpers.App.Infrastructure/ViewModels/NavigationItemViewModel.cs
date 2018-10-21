@@ -8,11 +8,17 @@ namespace DataHelpers.App.Infrastructure.ViewModels
         private string _image;
         private string _detailViewModelName;
 
-        public NavigationItemViewModel(int id, string displayMember, string detailViewModelName)
+        public NavigationItemViewModel(int id, 
+            string displayMember, 
+            string detailViewModelName,
+            string image = null
+            )
         {
             Id = id;
             DisplayMember = displayMember;
+            Image = image;
             _detailViewModelName = detailViewModelName;
+
         }
 
         public int Id { get; }
