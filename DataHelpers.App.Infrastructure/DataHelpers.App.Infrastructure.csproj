@@ -49,12 +49,21 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\DetailViewModelBase.cs" />
+    <Compile Include="Base\MessageDialogResult.cs" />
     <Compile Include="Base\MetroWindowViewBase.cs" />
+    <Compile Include="Base\NotifyDataErrorInfoBase.cs" />
     <Compile Include="Base\UserControlViewBase.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="Constants\IconNames.cs" />
     <Compile Include="Constants\RegionNames.cs" />
+    <Compile Include="Events\AfterDetailClosedEvent.cs" />
+    <Compile Include="Events\AfterDetailDeletedEvent.cs" />
+    <Compile Include="Events\AfterDetailSavedEvent.cs" />
+    <Compile Include="Interfaces\IDetailViewModel.cs" />
+    <Compile Include="Interfaces\IMessageDialogService.cs" />
     <Compile Include="Interfaces\INavigationViewModel.cs" />
+    <Compile Include="Interfaces\IProjectDetailViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -70,6 +79,7 @@
     </Compile>
     <Compile Include="ViewModels\NavigationDirectoryItemViewModel.cs" />
     <Compile Include="ViewModels\NavigationItemViewModel.cs" />
+    <Compile Include="Wrapper\ModelWrapper.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

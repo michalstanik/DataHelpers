@@ -1,13 +1,18 @@
 ﻿using DataHelpers.App.Infrastructure.Base;
 using DataHelpers.App.Infrastructure.Interfaces;
+using System;
 
 namespace DataHelpers.App.Projects.ViewModels
 {
     public class ProjectsViewModel : ViewModelBase
     {
-        public ProjectsViewModel(INavigationViewModel navigationModel)
+        private readonly Func<IProjectDetailViewModel> _projectDetailViewModelCreator;
+
+        public ProjectsViewModel(INavigationViewModel navigationModel,
+            Func<IProjectDetailViewModel> projectDetailViewModelCreator)
         {
             ProjectNavigationViewModel = navigationModel;
+            _projectDetailViewModelCreator = projectDetailViewModelCreator;
         }
 
         public INavigationViewModel ProjectNavigationViewModel { get; }

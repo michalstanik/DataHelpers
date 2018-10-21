@@ -1,4 +1,6 @@
-﻿using DataHelpers.App.Projects;
+﻿using DataHelpers.App.Infrastructure.Interfaces;
+using DataHelpers.App.Projects;
+using DataHelpers.App.Shell.Services;
 using DataHelpers.App.Shell.Views;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -32,7 +34,7 @@ namespace DataHelpers.App.Shell
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            containerRegistry.Register<IMessageDialogService, MessageDialogService>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

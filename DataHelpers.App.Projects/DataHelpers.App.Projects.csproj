@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,12 +72,18 @@
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\ProjectWorkspaceListViewModel.cs" />
     <Compile Include="ViewModels\ProjectWorkspaceViewModel.cs" />
+    <Compile Include="Views\ProjectDetailView.xaml.cs">
+      <DependentUpon>ProjectDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProjectNavigationView.xaml.cs">
       <DependentUpon>ProjectNavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProjectsView.xaml.cs">
       <DependentUpon>ProjectsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wrapper\ProjectComponentWrapper.cs" />
+    <Compile Include="Wrapper\ProjectWorkspaceWrapper.cs" />
+    <Compile Include="Wrapper\ProjectWrapper.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -88,6 +95,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\ProjectDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ProjectNavigationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

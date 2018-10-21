@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataHelpers.Data.DataAccess.Lookups
 {
-    public class LookupDataService : IProjectLookupDataService
+    public class LookupDataService : IProjectLookupDataService, IProjectTypeLookupDataService
     {
         private Func<DataHelpersContext> _contextCreator;
 
@@ -76,6 +76,21 @@ namespace DataHelpers.Data.DataAccess.Lookups
             }
 
             return  relatedEntites;
+        }
+
+        public async Task<IEnumerable<LookupItem>> GetProjectTypeLookupAsync()
+        {
+            using (var ctx = _contextCreator())
+            {
+                return await ctx.ProjectTypes.AsNoTracking()
+                    .Select(f =>
+                    new LookupItem
+                    {
+                        Id = f.Id,
+                        DisplayMember = f.ProjectTypeName
+                    })
+                    .ToListAsync();
+            }
         }
     }
 }
