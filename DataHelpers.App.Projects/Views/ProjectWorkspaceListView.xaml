@@ -7,8 +7,26 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid ItemsSource="{Binding ProjectWorkspace}">
-            
+        <DataGrid ItemsSource="{Binding ProjectWorkspace}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Workspace Name" Width="Auto"
+                                        ElementStyle="{StaticResource DataGridColumnStyle}"
+                                        EditingElementStyle="{StaticResource DataGridEditingColumnStyle}"
+                                        Binding="{Binding WorkspaceName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Path Name" Width="Auto"
+                                        ElementStyle="{StaticResource DataGridColumnStyle}"
+                                        EditingElementStyle="{StaticResource DataGridEditingColumnStyle}"
+                                        Binding="{Binding WorkspacePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Files on path" Width="Auto" IsReadOnly="True"
+                                        ElementStyle="{StaticResource DataGridColumnStyle}"
+                                        EditingElementStyle="{StaticResource DataGridEditingColumnStyle}"
+                                        Binding="{Binding FilesCounter, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Error Info" Width="Auto" IsReadOnly="True" 
+                                        ElementStyle="{StaticResource DataGridColumnStyle}"
+                                        EditingElementStyle="{StaticResource DataGridEditingColumnStyle}"
+                                        Binding="{Binding ErrorMessage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+
         </DataGrid>
     </Grid>
 </UserControl>

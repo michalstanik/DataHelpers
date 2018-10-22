@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using DataHelpers.App.Infrastructure.Base;
 using DataHelpers.App.Infrastructure.Constants;
@@ -12,7 +13,7 @@ namespace DataHelpers.App.Projects.ViewModels
 {
     public class ProjectNavigationViewModel : ViewModelBase, INavigationViewModel
     {
-        private  NavigationDirectoryItemViewModel _rootDirectoryItem;
+        private NavigationDirectoryItemViewModel _rootDirectoryItem;
         private readonly IProjectLookupDataService _projectLookupService;
         private List<NavigationItemViewModel> _dirItems;
 
@@ -23,7 +24,7 @@ namespace DataHelpers.App.Projects.ViewModels
             //var itemProvider = new ItemProvider();
             _rootDirectoryItem = new NavigationDirectoryItemViewModel(0, "Root", "Root");
             //DirItems = itemProvider.DirItems;
-            
+
         }
         public async Task LoadAsync()
         {
@@ -40,17 +41,17 @@ namespace DataHelpers.App.Projects.ViewModels
 
                 var relatedEntities = _projectLookupService.GetRelatedEntites(item.Id);
 
-                if(relatedEntities != null)
+                if (relatedEntities != null)
                 {
                     var groupItemWorkspace = new NavigationDirectoryItemViewModel
-                        (item.Id, $"Workspaces",
+                        (item.Id, TreeViewNames.Workspaces,
                         nameof(ProjectWorkspaceListViewModel),
                         IconNames.EmoticonCool);
 
                     tempProject.AddDirItem(groupItemWorkspace);
 
                     var groupItemComponents = new NavigationDirectoryItemViewModel
-                        (item.Id, $"Components",
+                        (item.Id, TreeViewNames.Components,
                         nameof(ProjectComponentsListViewModel));
 
                     tempProject.AddDirItem(groupItemComponents);
@@ -64,7 +65,7 @@ namespace DataHelpers.App.Projects.ViewModels
                                     (relatedEntitiesItem.Id,
                                     relatedEntitiesItem.DisplayMember,
                                     nameof(ProjectWorkspaceViewModel)));
-                             
+
                                 break;
 
                             case nameof(ProjectComponent):
@@ -79,9 +80,6 @@ namespace DataHelpers.App.Projects.ViewModels
                         }
                     }
                 }
-
-
-
             }
             _rootDirectoryItem.Items = childList;
             DirItems = _rootDirectoryItem.Traverse(_rootDirectoryItem);

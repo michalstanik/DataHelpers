@@ -57,6 +57,7 @@
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="Constants\IconNames.cs" />
     <Compile Include="Constants\RegionNames.cs" />
+    <Compile Include="Constants\TreeViewNames.cs" />
     <Compile Include="Events\AfterDetailClosedEvent.cs" />
     <Compile Include="Events\AfterDetailDeletedEvent.cs" />
     <Compile Include="Events\AfterDetailSavedEvent.cs" />

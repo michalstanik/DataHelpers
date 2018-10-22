@@ -1,13 +1,26 @@
-﻿using DataHelpers.App.Infrastructure.Wrapper;
+﻿using System;
+using System.IO;
+using System.Linq;
+using DataHelpers.App.Infrastructure.Wrapper;
 using DataHelpers.Data.DataModel.Projects;
 
 namespace DataHelpers.App.Projects.Wrapper
 {
     public class ProjectWorkspaceWrapper : ModelWrapper<ProjectWorkspace>
     {
+        private int _filesCounter;
+        private bool _errorFound;
+        private string _errorMessage;
+
         public ProjectWorkspaceWrapper(ProjectWorkspace model) : base(model)
         {
+            ErrorFound = false;   
+        }
 
+        public string WorkspaceName
+        {
+            get { return GetValue<string>(); }
+            set { SetValue(value); }
         }
 
         public string WorkspacePath
@@ -18,8 +31,59 @@ namespace DataHelpers.App.Projects.Wrapper
 
         public int FilesCounter
         {
-            get { return GetValue<int>(); }
-            set { SetValue(value); }
+            get { return _filesCounter = GetFilesNumberInPath(WorkspacePath); }
+        }
+
+        public bool ErrorFound
+        {
+            get { return _errorFound; }
+            private set
+            {
+                _errorFound = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            private set
+            {
+                _errorMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int GetFilesNumberInPath(string workspacePath)
+        {
+            try
+            {
+                var files = Directory.GetFiles(workspacePath);
+                return files.Count();
+
+            }
+            catch(UnauthorizedAccessException)
+            {
+                ErrorFound = true;
+                ErrorMessage = "Error: UnauthorizedAccessException";
+            }
+            catch(PathTooLongException)
+            {
+                ErrorFound = true;
+                ErrorMessage = "Error: PathTooLongException";
+            }
+            catch(DirectoryNotFoundException)
+            {
+                ErrorFound = true;
+                ErrorMessage = "Error: DirectoryNotFoundException";
+            }
+            catch(Exception ex)
+            {
+                ErrorFound = true;
+                ErrorMessage = $"Error: {ex.Message}";
+            }
+
+            return -1;
         }
     }
 }

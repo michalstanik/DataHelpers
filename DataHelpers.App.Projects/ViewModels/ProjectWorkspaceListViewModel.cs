@@ -40,7 +40,6 @@ namespace DataHelpers.App.Projects.ViewModels
                 ProjectWorkspace.Add(wrapper);
             }
             
-
             SetTitle();
              await Task.Delay(0);
         }
