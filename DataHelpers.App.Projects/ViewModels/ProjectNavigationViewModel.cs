@@ -61,6 +61,12 @@ namespace DataHelpers.App.Projects.ViewModels
                         switch (relatedEntitiesItem.Entity)
                         {
                             case nameof(ProjectWorkspace):
+
+                                if (relatedEntitiesItem.DisplayMember == null)
+                                {
+                                    relatedEntitiesItem.DisplayMember = "***no name***";
+                                }
+
                                 groupItemWorkspace.AddDirItem(new NavigationDirectoryItemViewModel
                                     (relatedEntitiesItem.Id,
                                     relatedEntitiesItem.DisplayMember,

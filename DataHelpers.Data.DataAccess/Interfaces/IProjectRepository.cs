@@ -7,6 +7,6 @@ namespace DataHelpers.Data.DataAccess.Interfaces
     public interface IProjectRepository : IGenericRepository<Project>
     {
         void RemoveProjectComponent(ProjectComponent model);
-        Task<IEnumerable<ProjectWorkspace>> GetProjectWorkspacesForProject(int Id);
+        IEnumerable<ProjectWorkspace> GetProjectWorkspacesForProject(int Id);
     }
 }

@@ -7,7 +7,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid ItemsSource="{Binding ProjectWorkspace}" AutoGenerateColumns="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <Label DockPanel.Dock="Top" FontSize="16">Workspaces:</Label>
+            <StackPanel DockPanel.Dock="Top" >
+                <Button Content="Select Path" Command="{Binding SelectPath}"></Button>
+            </StackPanel>
+        </DockPanel>
+        <DataGrid  Grid.Row="1" ItemsSource="{Binding ProjectWorkspace}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Workspace Name" Width="Auto"
                                         ElementStyle="{StaticResource DataGridColumnStyle}"
