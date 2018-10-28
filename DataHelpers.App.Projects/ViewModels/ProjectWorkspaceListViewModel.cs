@@ -62,7 +62,7 @@ namespace DataHelpers.App.Projects.ViewModels
            
 
             var flyoutService = new FlyoutService(_regionManager, _applicationCommands);
-            flyoutService.SetDataContext(parameters, new ProjectWorkspaceDetailsFlyoutViewModel()
+            flyoutService.SetDataContext(parameters, new ProjectWorkspaceDetailsFlyoutViewModel(_projectRepository)
             {
                 EntityId = parameters.FlyoutEntityId
             });
@@ -162,6 +162,8 @@ namespace DataHelpers.App.Projects.ViewModels
                 OnPropertyChanged();
             }
         }
+
+
 
         public ObservableCollection<ProjectWorkspaceWrapper> ProjectWorkspace { get; }
 

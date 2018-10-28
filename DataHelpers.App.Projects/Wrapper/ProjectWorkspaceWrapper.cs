@@ -40,6 +40,18 @@ namespace DataHelpers.App.Projects.Wrapper
             get { return _filesCounter = GetFilesNumberInPath(WorkspacePath); }
         }
 
+        public bool HasPathError
+        {
+            get
+            {
+                if (GetFilesNumberInPath(WorkspacePath) < 0)
+                    return false;
+                else return true;
+            }
+
+            set { }
+        }
+
         public bool ErrorFound
         {
             get { return _errorFound; }

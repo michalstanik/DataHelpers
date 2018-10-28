@@ -1,17 +1,15 @@
 ﻿using DataHelpers.App.Infrastructure.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DataHelpers.Data.DataAccess.Interfaces;
 
 namespace DataHelpers.App.Projects.ViewModels
 {
     public class ProjectWorkspaceDetailsFlyoutViewModel : ViewModelBase
     {
-        public ProjectWorkspaceDetailsFlyoutViewModel()
-        {
+        private readonly IProjectRepository _projectRepository;
 
+        public ProjectWorkspaceDetailsFlyoutViewModel(IProjectRepository projectRepository)
+        {
+            _projectRepository = projectRepository;
         }
 
         public int EntityId { get; set; }

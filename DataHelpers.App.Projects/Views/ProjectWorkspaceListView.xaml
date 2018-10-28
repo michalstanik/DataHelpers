@@ -38,8 +38,11 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Command="{Binding DataContext.NewOpenDetailsCommand ,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type UserControl}}}"
+                            <Button Command="{Binding DataContext.NewOpenDetailsCommand,
+                                                      RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type UserControl}}}"
                                     CommandParameter="{Binding Id}"
+                                    Visibility="{Binding HasPathError,  
+                                                         Converter={StaticResource booleanToVisibilityConverter}}"
                                     Content="Details">
                             </Button>
                         </DataTemplate>
