@@ -3,5 +3,6 @@
     public interface IFlyoutView
     {
         string FlyoutName { get; }
+        int? EntityId { get; set; }
     }
 }

@@ -9,13 +9,13 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Name="StackPanel">
             <Button Width="30" Height="30" Margin="10" 
                     Style="{DynamicResource MetroCircleButtonStyle}"
                     BorderBrush="{DynamicResource AccentColorBrush2}"
@@ -32,13 +32,20 @@
                     <Label Content="Add Path" FontWeight="DemiBold" />
                 </Button.ToolTip>
             </Button>
-            <Button Command="{x:Static commands:ApplicationCommands.ShowFlyoutCommand}"
-                    CommandParameter="{x:Static constants:FlyoutNames.ProjectWorkspaceDetailsFlyoutView}"
-                    Content="Flyout">
-            </Button>
         </StackPanel>
         <DataGrid  Grid.Row="1" ItemsSource="{Binding ProjectWorkspace}" AutoGenerateColumns="False">
             <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding DataContext.NewOpenDetailsCommand ,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type UserControl}}}"
+                                    CommandParameter="{Binding Id}"
+                                    Content="Details">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <DataGridTextColumn Header="Workspace Name" Width="Auto"
                                         ElementStyle="{StaticResource DataGridColumnStyle}"
                                         EditingElementStyle="{StaticResource DataGridEditingColumnStyle}"

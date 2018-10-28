@@ -14,6 +14,10 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Data.Entity;
 using DataHelpers.App.Infrastructure.Constants;
+using DataHelpers.App.Infrastructure.Services;
+using DataHelpers.App.Infrastructure.Commands;
+using ApplicationCommands = DataHelpers.App.Infrastructure.Commands.ApplicationCommands;
+using Prism.Regions;
 
 namespace DataHelpers.App.Projects.ViewModels
 {
@@ -21,19 +25,48 @@ namespace DataHelpers.App.Projects.ViewModels
     {
         private readonly IMessageDialogService _messageDialogService;
         private readonly IProjectRepository _projectRepository;
+        private readonly IRegionManager _regionManager;
+        private readonly IApplicationCommands _applicationCommands;
         private ProjectWrapper _project;
         private ProjectWorkspaceWrapper _projectWorkspace;
 
         public ProjectWorkspaceListViewModel(
             IMessageDialogService messageDialogService,
-            IProjectRepository projectRepository)
+            IProjectRepository projectRepository,
+            IRegionManager regionManager, 
+            IApplicationCommands applicationCommands)
             :base(messageDialogService)
         {
             _messageDialogService = messageDialogService;
             _projectRepository = projectRepository;
+            _regionManager = regionManager;
+            _applicationCommands = applicationCommands;
             ProjectWorkspace = new ObservableCollection<ProjectWorkspaceWrapper>();
 
             SelectPath = new DelegateCommand(SelectFileExecute);
+            NewOpenDetailsCommand = new DelegateCommand<int?>(OpenNewWorkspaceFlyout);
+        }
+
+        private void OpenNewWorkspaceFlyout(int? id)
+        {
+            int newId = 0;
+            if(id != null) { newId = (int)id; }
+
+            //TODO: Check if open
+            var parameters = new FlayoutParamaters
+            {
+                FlyoutEntityId = newId,
+                FlyoutName = FlyoutNames.ProjectWorkspaceDetailsFlyoutView
+            };
+
+           
+
+            var flyoutService = new FlyoutService(_regionManager, _applicationCommands);
+            flyoutService.SetDataContext(parameters, new ProjectWorkspaceDetailsFlyoutViewModel()
+            {
+                EntityId = parameters.FlyoutEntityId
+            });
+            flyoutService.ShowFlyout(parameters);
         }
 
         private async void SelectFileExecute()
@@ -133,7 +166,7 @@ namespace DataHelpers.App.Projects.ViewModels
         public ObservableCollection<ProjectWorkspaceWrapper> ProjectWorkspace { get; }
 
         public ICommand SelectPath { get; }
-
+        public ICommand NewOpenDetailsCommand { get; set; }
         #endregion
 
         private void SetTitle()

@@ -17,6 +17,12 @@ namespace DataHelpers.App.Projects.Wrapper
             ErrorFound = false;   
         }
 
+        public int Id
+        {
+            get { return GetValue<int>(); }
+            set { SetValue(value); }
+        }
+
         public string WorkspaceName
         {
             get { return GetValue<string>(); }

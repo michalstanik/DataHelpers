@@ -13,9 +13,9 @@
                 Position="Right"
                 AreAnimationsEnabled="True"
                 Header="Settings"
-                HorizontalContentAlignment="Stretch"
+                
                 Theme="Inverse" >
     <Grid>
-            
+        <TextBlock Text="{Binding EntityId}"></TextBlock>
     </Grid>
 </inf:FlyoutViewBase>

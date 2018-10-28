@@ -1,9 +1,11 @@
-﻿namespace DataHelpers.App.Infrastructure.Interfaces
+﻿using DataHelpers.App.Infrastructure.Services;
+
+namespace DataHelpers.App.Infrastructure.Interfaces
 {
     public interface IFlyoutService
     {
-        void ShowFlyout(string flyoutName);
+        void ShowFlyout(FlayoutParamaters flyoutEntity);
 
-        bool CanShowFlyout(string flyoutName);
+        bool CanShowFlyout(FlayoutParamaters flyoutEntity);
     }
 }
