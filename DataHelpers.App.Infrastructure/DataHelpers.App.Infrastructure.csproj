@@ -66,6 +66,7 @@
     <Compile Include="Events\AfterDetailDeletedEvent.cs" />
     <Compile Include="Events\AfterDetailSavedEvent.cs" />
     <Compile Include="Events\OpenDetailViewEvent.cs" />
+    <Compile Include="Helpers\FileDirectoryHelpers.cs" />
     <Compile Include="Interfaces\IDetailViewModel.cs" />
     <Compile Include="Interfaces\IFlyoutService.cs" />
     <Compile Include="Interfaces\IFlyoutView.cs" />

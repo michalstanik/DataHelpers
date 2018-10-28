@@ -163,6 +163,11 @@ namespace DataHelpers.App.Projects.ViewModels
             }
         }
 
+        public bool AllPathsHaveErrors
+        {
+            get { return false; }
+        }
+
 
 
         public ObservableCollection<ProjectWorkspaceWrapper> ProjectWorkspace { get; }

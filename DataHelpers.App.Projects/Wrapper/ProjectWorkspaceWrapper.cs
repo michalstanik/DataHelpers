@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using DataHelpers.App.Infrastructure.Helpers;
 using DataHelpers.App.Infrastructure.Wrapper;
 using DataHelpers.Data.DataModel.Projects;
 
@@ -37,14 +35,22 @@ namespace DataHelpers.App.Projects.Wrapper
 
         public int FilesCounter
         {
-            get { return _filesCounter = GetFilesNumberInPath(WorkspacePath); }
+            get {
+                //TODO: Refactor to static
+                var newHelper = new FileDirectoryHelpers();
+                var helperClass = newHelper.GetFilesNumberInPath(WorkspacePath);
+                return helperClass.FileNumbers;
+            }
         }
 
         public bool HasPathError
         {
             get
             {
-                if (GetFilesNumberInPath(WorkspacePath) < 0)
+                //TODO: Refactor to static
+                var newHelper = new FileDirectoryHelpers();
+                var helperClass = newHelper.GetFilesNumberInPath(WorkspacePath);
+                if (helperClass.FileNumbers < 0)
                     return false;
                 else return true;
             }
@@ -64,7 +70,14 @@ namespace DataHelpers.App.Projects.Wrapper
 
         public string ErrorMessage
         {
-            get { return _errorMessage; }
+            get
+            {
+                var newHelper = new FileDirectoryHelpers();
+                var helperClass = newHelper.GetFilesNumberInPath(WorkspacePath);
+                if (helperClass.ErrorMessage != null)
+                    _errorMessage = helperClass.ErrorMessage;
+                return _errorMessage;
+            }
             private set
             {
                 _errorMessage = value;
@@ -72,36 +85,6 @@ namespace DataHelpers.App.Projects.Wrapper
             }
         }
 
-        private int GetFilesNumberInPath(string workspacePath)
-        {
-            try
-            {
-                var files = Directory.GetFiles(workspacePath);
-                return files.Count();
-
-            }
-            catch(UnauthorizedAccessException)
-            {
-                ErrorFound = true;
-                ErrorMessage = "Error: UnauthorizedAccessException";
-            }
-            catch(PathTooLongException)
-            {
-                ErrorFound = true;
-                ErrorMessage = "Error: PathTooLongException";
-            }
-            catch(DirectoryNotFoundException)
-            {
-                ErrorFound = true;
-                ErrorMessage = "Error: DirectoryNotFoundException";
-            }
-            catch(Exception ex)
-            {
-                ErrorFound = true;
-                ErrorMessage = $"Error: {ex.Message}";
-            }
-
-            return -1;
-        }
+        
     }
 }
