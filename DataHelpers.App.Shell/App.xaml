@@ -1,6 +1,7 @@
 ﻿<prism:PrismApplication x:Class="DataHelpers.App.Shell.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
 	     xmlns:prism="http://prismlibrary.com/"
              xmlns:local="clr-namespace:DataHelpers.App.Shell">
     <Application.Resources>
@@ -20,6 +21,9 @@
                         <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
                         Path=(Validation.Errors)[0].ErrorContent}"/>
                     </Trigger>
+                    <DataTrigger Binding="{Binding FilesCounter }"  Value= "-1">
+                        <Setter Property="Background" Value="Red"/>
+                    </DataTrigger>
                 </Style.Triggers>
             </Style>
 

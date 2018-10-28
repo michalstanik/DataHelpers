@@ -69,6 +69,7 @@
     <Compile Include="ViewModels\ProjectDetailViewModel.cs" />
     <Compile Include="ViewModels\ProjectNavigationViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\ProjectWorkspaceDetailsFlyoutViewModel.cs" />
     <Compile Include="ViewModels\ProjectWorkspaceListViewModel.cs" />
     <Compile Include="ViewModels\ProjectWorkspaceViewModel.cs" />
     <Compile Include="Views\ProjectDetailView.xaml.cs">
@@ -79,6 +80,9 @@
     </Compile>
     <Compile Include="Views\ProjectsView.xaml.cs">
       <DependentUpon>ProjectsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectWorkspaceDetailsFlyoutView.xaml.cs">
+      <DependentUpon>ProjectWorkspaceDetailsFlyoutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProjectWorkspaceListView.xaml.cs">
       <DependentUpon>ProjectWorkspaceListView.xaml</DependentUpon>
@@ -106,6 +110,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProjectsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProjectWorkspaceDetailsFlyoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

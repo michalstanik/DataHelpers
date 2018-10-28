@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Data.Entity;
+using DataHelpers.App.Infrastructure.Constants;
 
 namespace DataHelpers.App.Projects.ViewModels
 {
@@ -37,7 +38,10 @@ namespace DataHelpers.App.Projects.ViewModels
 
         private async void SelectFileExecute()
         {
-            FolderBrowserDialog _openFileDialog = new FolderBrowserDialog();
+            FolderBrowserDialog _openFileDialog = new FolderBrowserDialog()
+            {
+                Description = UserMessages.FolderBrowserDialogDescription
+            };
 
             DialogResult result = _openFileDialog.ShowDialog();
 
@@ -57,13 +61,19 @@ namespace DataHelpers.App.Projects.ViewModels
                 var distinctExtensins = extensionsList.Distinct();
 
                 var dialog = await _messageDialogService
-                    .ShowOkCancelDialogAsync($"You selected path {_openFileDialog.SelectedPath}, " +
-                    $"which contain {files.Count()} files in {distinctExtensins.Count()} different types. " +
-                    $"Do you want to continue with selection?", "Question");
+                    .ShowOkCancelDialogAsync(
+                    $"You selected path {_openFileDialog.SelectedPath}, " +
+                    $"which contain {files.Count()} " +
+                    $"files in {distinctExtensins.Count()} " +
+                    $"different types. Do you want to continue with selection?", "Question");
 
                 if (dialog == MessageDialogResult.OK)
                 {
                     SavePathInProject(_openFileDialog.SelectedPath);
+                }
+                else
+                {
+                    //TODO: Recomanded to create new catalog with defoult name 
                 }
             }
         }

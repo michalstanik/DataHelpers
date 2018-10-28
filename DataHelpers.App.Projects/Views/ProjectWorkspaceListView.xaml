@@ -3,20 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:commands="clr-namespace:DataHelpers.App.Infrastructure.Commands;assembly=DataHelpers.App.Infrastructure"
+             xmlns:constants="clr-namespace:DataHelpers.App.Infrastructure.Constants;assembly=DataHelpers.App.Infrastructure"
              xmlns:local="clr-namespace:DataHelpers.App.Projects.Views"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DockPanel>
-            <Label DockPanel.Dock="Top" FontSize="16">Workspaces:</Label>
-            <StackPanel DockPanel.Dock="Top" >
-                <Button Content="Select Path" Command="{Binding SelectPath}"></Button>
-            </StackPanel>
-        </DockPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Width="30" Height="30" Margin="10" 
+                    Style="{DynamicResource MetroCircleButtonStyle}"
+                    BorderBrush="{DynamicResource AccentColorBrush2}"
+                    FocusVisualStyle="{DynamicResource MahApps.Metro.Styles.MetroCircleFocusVisual}"
+                    Command="{Binding SelectPath}">
+                <iconPacks:PackIconModern 
+                             Width="15"
+                             Height="15"
+                             HorizontalContentAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             Foreground="{DynamicResource AccentColorBrush2}"
+                             Kind="Add"/>
+                <Button.ToolTip>
+                    <Label Content="Add Path" FontWeight="DemiBold" />
+                </Button.ToolTip>
+            </Button>
+            <Button Command="{x:Static commands:ApplicationCommands.ShowFlyoutCommand}"
+                    CommandParameter="{x:Static constants:FlyoutNames.ProjectWorkspaceDetailsFlyoutView}"
+                    Content="Flyout">
+            </Button>
+        </StackPanel>
         <DataGrid  Grid.Row="1" ItemsSource="{Binding ProjectWorkspace}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Workspace Name" Width="Auto"
@@ -36,7 +56,13 @@
                                         EditingElementStyle="{StaticResource DataGridEditingColumnStyle}"
                                         Binding="{Binding ErrorMessage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
-
         </DataGrid>
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+         
+            <Button Content="Save" Width="100" Margin="10"
+                    Command="{Binding SaveCommand}"/>
+            <Button Content="Delete" Width="100" Margin="10"
+                    Command="{Binding DeleteCommand}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

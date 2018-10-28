@@ -8,10 +8,8 @@ using Prism.Commands;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace DataHelpers.App.Projects.ViewModels
@@ -108,7 +106,6 @@ namespace DataHelpers.App.Projects.ViewModels
 
         public ICommand RemoveComponentCommand { get; }
         public ICommand AddComponentCommand { get; }
-        public ICommand SelectPath { get; }
 
         private Project CreateNewProject()
         {

@@ -1,4 +1,7 @@
-﻿using DataHelpers.App.Infrastructure.Interfaces;
+﻿using DataHelpers.App.Infrastructure.Commands;
+using DataHelpers.App.Infrastructure.Constants;
+using DataHelpers.App.Infrastructure.Interfaces;
+using DataHelpers.App.Infrastructure.Services;
 using DataHelpers.App.Projects;
 using DataHelpers.App.Shell.Services;
 using DataHelpers.App.Shell.Views;
@@ -26,7 +29,7 @@ namespace DataHelpers.App.Shell
             var regionManager = this.Container.Resolve<IRegionManager>();
             if (regionManager != null)
             {
-
+                
             }
 
             App.Current.MainWindow.Show();
@@ -35,6 +38,7 @@ namespace DataHelpers.App.Shell
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.Register<IMessageDialogService, MessageDialogService>();
+            containerRegistry.Register<IApplicationCommands, ApplicationCommandsProxy>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
@@ -48,5 +52,10 @@ namespace DataHelpers.App.Shell
             base.ConfigureServiceLocator();
             
         }
+
+        //TODO: Integrate with file log 
+        //TODO: Log level by UI
+        //TODO: View Logs by UI
+
     }
 }

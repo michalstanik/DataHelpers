@@ -1,4 +1,6 @@
-﻿using DataHelpers.App.Infrastructure.Interfaces;
+﻿using DataHelpers.App.Infrastructure.Constants;
+using DataHelpers.App.Infrastructure.Interfaces;
+using DataHelpers.App.Infrastructure.Services;
 using DataHelpers.App.Projects.ViewModels;
 using DataHelpers.App.Projects.Views;
 using DataHelpers.Data.DataAccess.Interfaces;
@@ -23,11 +25,16 @@ namespace DataHelpers.App.Projects
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
-
+            var regionManager = _container.Resolve<IRegionManager>();
+            if (regionManager != null)
+            {
+                regionManager.RegisterViewWithRegion(RegionNames.FlyoutRegion, typeof(ProjectWorkspaceDetailsFlyoutView));
+            }
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterInstance<IFlyoutService>(_container.Resolve<FlyoutService>());
             containerRegistry.Register<IProjectRepository, ProjectRepository>();
             containerRegistry.Register<IProjectLookupDataService, LookupDataService>();
             containerRegistry.Register<IProjectTypeLookupDataService, LookupDataService>();
