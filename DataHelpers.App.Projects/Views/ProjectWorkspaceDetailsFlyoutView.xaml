@@ -8,14 +8,17 @@
              xmlns:prism="http://www.codeplex.com/prism"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
-                    
+             d:DesignHeight="300" d:DesignWidth="300"         
                 Position="Right"
                 AreAnimationsEnabled="True"
                 Header="Settings"
-                
                 Theme="Inverse" >
     <Grid>
-        <TextBlock Text="{Binding EntityId}"></TextBlock>
+        <StackPanel HorizontalAlignment="Center">
+            <TextBlock Text="{Binding EntityId}"></TextBlock>
+            <TextBlock Text="{Binding ProjectWorkspace.Id}"></TextBlock>
+            <TextBlock Text="{Binding ProjectWorkspace.WorkspaceName}"></TextBlock>
+            <TextBlock Text="{Binding ProjectWorkspace.WorkspacePath}"></TextBlock>
+        </StackPanel>
     </Grid>
 </inf:FlyoutViewBase>

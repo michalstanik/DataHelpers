@@ -22,6 +22,11 @@ namespace DataHelpers.Data.DataAccess.Repository
                 .SingleAsync(p => p.Id == projectId);
         }
 
+        public ProjectWorkspace GetProjectWorkspace(int workspaceId)
+        {
+            return Context.ProjectWorkspaces.Where(w => w.Id == workspaceId).FirstOrDefault();
+        }
+
         public IEnumerable<ProjectWorkspace> GetProjectWorkspacesForProject(int projectId)
         {
             return Context.ProjectWorkspaces.Where(s => s.ProjectId == projectId);
