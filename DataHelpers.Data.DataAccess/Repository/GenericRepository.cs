@@ -1,5 +1,9 @@
 ﻿using DataHelpers.Data.DataAccess.Interfaces;
+using DataHelpers.Data.DataModel;
+using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DataHelpers.Data.DataAccess.Repository
@@ -37,7 +41,53 @@ namespace DataHelpers.Data.DataAccess.Repository
 
         public async Task SaveAsync()
         {
+            var AddedEntities = Context.ChangeTracker.Entries().Where(E => E.State == EntityState.Added).ToList();
+
+            AddedEntities.ForEach(E =>
+            {
+                E.Property("CreationTime").CurrentValue = DateTime.Now;
+            });
+
+            var EditedEntities = Context.ChangeTracker.Entries().Where(E => E.State == EntityState.Modified).ToList();
+
+            EditedEntities.ForEach(E =>
+            {
+                if (IsAuditableEntity(E))
+                    CreateAuditLogEntry(E);
+
+                E.Property("ModifiedTime").CurrentValue = DateTime.Now;
+            });
             await Context.SaveChangesAsync();
+        }
+
+        private void CreateAuditLogEntry(DbEntityEntry entity)
+        {
+            foreach (var propertyName in entity.OriginalValues.PropertyNames)
+            {
+                var originalValue = entity.GetDatabaseValues().GetValue<object>(propertyName).ToString();
+                var newValue = entity.CurrentValues.GetValue<object>(propertyName).ToString();
+
+                if (originalValue != newValue)
+                {
+                    var auditEntry = new AuditLog()
+                    {
+                        EntityName = entity.Entity.ToString(),
+                        ChangeTime = DateTime.Now,
+                        FieldName = propertyName,
+                        NewValue = newValue,
+                        PreviousValue = originalValue,
+                        EntityId = (int)entity.CurrentValues.GetValue<object>("Id")
+
+                    };
+                    Context.Set<AuditLog>().Add(auditEntry);
+                }
+            }
+        }
+
+        //TODO: Check only Auditable properties
+        private bool IsAuditableEntity(DbEntityEntry entity)
+        {
+            return true;
         }
     }
 }
