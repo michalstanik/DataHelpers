@@ -62,6 +62,7 @@ namespace DataHelpers.Data.DataAccess.Repository
 
         private void CreateAuditLogEntry(DbEntityEntry entity)
         {
+            var type = entity.Entity.GetType();
             foreach (var propertyName in entity.OriginalValues.PropertyNames)
             {
                 var originalValue = "Empty";
@@ -81,7 +82,8 @@ namespace DataHelpers.Data.DataAccess.Repository
                 {
                     var auditEntry = new AuditLog()
                     {
-                        EntityName = entity.Entity.ToString(),
+                        EntityName = entity.Entity.GetType().Name,
+                        EntityNamespace = entity.Entity.GetType().Namespace,
                         ChangeTime = DateTime.Now,
                         FieldName = propertyName,
                         NewValue = newValue,
