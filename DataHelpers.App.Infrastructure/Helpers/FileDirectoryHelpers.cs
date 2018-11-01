@@ -6,46 +6,26 @@ using static DataHelpers.App.Infrastructure.Helpers.FileDirectoryOutput;
 
 namespace DataHelpers.App.Infrastructure.Helpers
 {
-    public class FileDirectoryOutput
-    {
-        public int FileNumbers { get; set; }
-        public string ErrorMessage { get; set; }
-        public List<FileInfoOutput> FilesList { get; set; }
-
-        public class FileInfoOutput
-        {
-            public string FileName { get; set; }
-            public FileType Type { get; set; }
-            public string Extension { get; set; }
-        }
-
-        public class LogicalDrive
-        {
-            public string Name { get; set; }
-            public long AvialaibleSpace { get; set; }
-            public string AvaliableSpaceText { get; set; }
-            public long TotalSpace { get; set; }
-            public string TotalSpaceText { get; set; }
-            public string VolumeLabel { get; set; }
-        }
-
-        public enum FileType
-        {
-            Drive, 
-            File, 
-            Folder
-        }
-    }
-
     public class FileDirectoryHelpers
     {
-        public FileDirectoryOutput GetFilesNumberInPath(string workspacePath)
+        public FileDirectoryOutput GetFilesInfoInPath(string workspacePath)
         {
             try
             {
-                var logicalDrives = GetAllLogicalDrive();
-
                 var fileList = new List<FileInfoOutput>();
+
+                foreach (var drive in GetAllLogicalDrive())
+                {
+                    if (drive.Name == workspacePath)
+                    {
+                        var driveInfo = new FileInfoOutput()
+                        {
+                            FileName = drive.Name,
+                            Type = FileType.Drive
+                        };
+                        fileList.Add(driveInfo);
+                    }
+                }
 
                 var files = Directory.GetFiles(workspacePath);
                 foreach (var file in files)

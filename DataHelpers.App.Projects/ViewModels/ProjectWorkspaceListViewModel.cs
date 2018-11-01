@@ -1,23 +1,21 @@
 ﻿using DataHelpers.App.Infrastructure.Base;
+using DataHelpers.App.Infrastructure.Commands;
+using DataHelpers.App.Infrastructure.Constants;
+using DataHelpers.App.Infrastructure.Helpers;
 using DataHelpers.App.Infrastructure.Interfaces;
+using DataHelpers.App.Infrastructure.Services;
 using DataHelpers.App.Projects.Wrapper;
 using DataHelpers.Data.DataAccess.Interfaces;
 using DataHelpers.Data.DataModel.Projects;
 using Prism.Commands;
+using Prism.Regions;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Data.Entity;
-using DataHelpers.App.Infrastructure.Constants;
-using DataHelpers.App.Infrastructure.Services;
-using DataHelpers.App.Infrastructure.Commands;
-using ApplicationCommands = DataHelpers.App.Infrastructure.Commands.ApplicationCommands;
-using Prism.Regions;
 
 namespace DataHelpers.App.Projects.ViewModels
 {
@@ -28,7 +26,7 @@ namespace DataHelpers.App.Projects.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IApplicationCommands _applicationCommands;
         private ProjectWrapper _project;
-        private ProjectWorkspaceWrapper _projectWorkspace;
+        private ProjectWorkspaceWrapper _selectedProjectWorkspace;
 
         public ProjectWorkspaceListViewModel(
             IMessageDialogService messageDialogService,
@@ -59,8 +57,6 @@ namespace DataHelpers.App.Projects.ViewModels
                 FlyoutName = FlyoutNames.ProjectWorkspaceDetailsFlyoutView
             };
 
-           
-
             var flyoutService = new FlyoutService(_regionManager, _applicationCommands);
             flyoutService.SetDataContext(parameters, new ProjectWorkspaceDetailsFlyoutViewModel(_projectRepository)
             {
@@ -80,24 +76,14 @@ namespace DataHelpers.App.Projects.ViewModels
 
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(_openFileDialog.SelectedPath))
             {
-                //TODO: Lack of exeption handling for Directory.GetFiles
-                var files = Directory.GetFiles(_openFileDialog.SelectedPath);
-
-                List<string> extensionsList = new List<string>();
-
-                foreach (var file in files)
-                {
-                    var extension = Path.GetExtension(file);
-                    extensionsList.Add(extension);
-                }
-
-                var distinctExtensins = extensionsList.Distinct();
+                var newHelper = new FileDirectoryHelpers();
+                var filesInPath = newHelper.GetFilesInfoInPath(_openFileDialog.SelectedPath);
 
                 var dialog = await _messageDialogService
                     .ShowOkCancelDialogAsync(
                     $"You selected path {_openFileDialog.SelectedPath}, " +
-                    $"which contain {files.Count()} " +
-                    $"files in {distinctExtensins.Count()} " +
+                    $"which contain {filesInPath.FileNumbers} " +
+                    $"files in {filesInPath.FilesList.Select(s => s.Extension).Distinct().Count()} " +
                     $"different types. Do you want to continue with selection?", "Question");
 
                 if (dialog == MessageDialogResult.OK)
@@ -124,6 +110,8 @@ namespace DataHelpers.App.Projects.ViewModels
                 Project.Model.ProjectWorkspaces.Add(newWorkspace.Model);
                 //TODO - Integrate with whole model validations
                 OnSaveExecute();
+
+                ProjectWorkspace.Add(newWorkspace);
             }
             else
             {
@@ -140,17 +128,42 @@ namespace DataHelpers.App.Projects.ViewModels
             Id = project.Id;
             Project = new ProjectWrapper(project);
 
-            var projectWorkspace =  _projectRepository.GetProjectWorkspacesForProject(Id);
-            ProjectWorkspace.Clear();
-            foreach (var item in projectWorkspace)
-            {
-                var wrapper  = new ProjectWorkspaceWrapper(item);
-                ProjectWorkspace.Add(wrapper);
-            }
+            InitializeProjetWrappers(Id);
+
+
             
             SetTitle();
              await Task.Delay(0);
         }
+
+        private void InitializeProjetWrappers(int projectId)
+        {
+            var projectWorkspace = _projectRepository.GetProjectWorkspacesForProject(projectId);
+            foreach (var wrapper in ProjectWorkspace)
+            {
+                wrapper.PropertyChanged -= ProjectWorkspaceWrapper_PropertyChanged;
+            }
+            ProjectWorkspace.Clear();
+            foreach (var item in projectWorkspace)
+            {
+                var wrapper = new ProjectWorkspaceWrapper(item);
+                ProjectWorkspace.Add(wrapper);
+                wrapper.PropertyChanged += ProjectWorkspaceWrapper_PropertyChanged;
+            }
+        }
+
+        private void ProjectWorkspaceWrapper_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (!HasChanges)
+            {
+                HasChanges = _projectRepository.HasChanges();
+            }
+            if (e.PropertyName == nameof(ProjectWorkspaceWrapper.HasErrors))
+            {
+                ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+            }
+        }
+
         #region PublicPropertiesAndCommands
 
         public ProjectWrapper Project
@@ -160,6 +173,17 @@ namespace DataHelpers.App.Projects.ViewModels
             {
                 _project = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public ProjectWorkspaceWrapper SelectedProjectWorkspace
+        {
+            get { return _selectedProjectWorkspace; }
+            set
+            {
+                _selectedProjectWorkspace = value;
+                OnPropertyChanged();
+                //((DelegateCommand)RemoveComponentCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -181,7 +205,12 @@ namespace DataHelpers.App.Projects.ViewModels
 
         protected override bool OnSaveCanExecute()
         {
-            return true;
+            var result =  ProjectWorkspace != null
+            && !Project.HasErrors
+            && ProjectWorkspace.All(pc => !pc.HasErrors)
+            && HasChanges;
+
+            return result;
         }
 
         protected async override void OnSaveExecute()

@@ -1,6 +1,7 @@
 ﻿using DataHelpers.App.Infrastructure.Helpers;
 using DataHelpers.App.Infrastructure.Wrapper;
 using DataHelpers.Data.DataModel.Projects;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataHelpers.App.Projects.Wrapper
 {
@@ -21,6 +22,7 @@ namespace DataHelpers.App.Projects.Wrapper
             set { SetValue(value); }
         }
 
+        [Required]
         public string WorkspaceName
         {
             get { return GetValue<string>(); }
@@ -38,7 +40,7 @@ namespace DataHelpers.App.Projects.Wrapper
             get {
                 //TODO: Refactor to static
                 var newHelper = new FileDirectoryHelpers();
-                var helperClass = newHelper.GetFilesNumberInPath(WorkspacePath);
+                var helperClass = newHelper.GetFilesInfoInPath(WorkspacePath);
                 return helperClass.FileNumbers;
             }
         }
@@ -49,7 +51,7 @@ namespace DataHelpers.App.Projects.Wrapper
             {
                 //TODO: Refactor to static
                 var newHelper = new FileDirectoryHelpers();
-                var helperClass = newHelper.GetFilesNumberInPath(WorkspacePath);
+                var helperClass = newHelper.GetFilesInfoInPath(WorkspacePath);
                 if (helperClass.FileNumbers < 0)
                     return false;
                 else return true;
@@ -73,7 +75,7 @@ namespace DataHelpers.App.Projects.Wrapper
             get
             {
                 var newHelper = new FileDirectoryHelpers();
-                var helperClass = newHelper.GetFilesNumberInPath(WorkspacePath);
+                var helperClass = newHelper.GetFilesInfoInPath(WorkspacePath);
                 if (helperClass.ErrorMessage != null)
                     _errorMessage = helperClass.ErrorMessage;
                 return _errorMessage;

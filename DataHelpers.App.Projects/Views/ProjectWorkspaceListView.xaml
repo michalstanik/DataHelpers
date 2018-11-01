@@ -33,7 +33,10 @@
                 </Button.ToolTip>
             </Button>
         </StackPanel>
-        <DataGrid  Grid.Row="1" ItemsSource="{Binding ProjectWorkspace}" AutoGenerateColumns="False">
+        <DataGrid  Grid.Row="1" 
+                   ItemsSource="{Binding ProjectWorkspace}" 
+                   SelectedItem="{Binding SelectedProjectWorkspace, Mode=TwoWay}"
+                   AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -43,7 +46,8 @@
                                     CommandParameter="{Binding Id}"
                                     Visibility="{Binding HasPathError,  
                                                          Converter={StaticResource booleanToVisibilityConverter}}"
-                                    Content="Details">
+                                    Content="Details" Margin="7 5 7 5" Padding="5,2">
+
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -60,7 +64,8 @@
                 <DataGridTextColumn Header="Files on path" Width="Auto" IsReadOnly="True"
                                         ElementStyle="{StaticResource DataGridColumnStyle}"
                                         EditingElementStyle="{StaticResource DataGridEditingColumnStyle}"
-                                        Binding="{Binding FilesCounter, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        Binding="{Binding FilesCounter, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Error Info" Width="Auto" IsReadOnly="True" 
                                         ElementStyle="{StaticResource DataGridColumnStyle}"
                                         EditingElementStyle="{StaticResource DataGridEditingColumnStyle}"
