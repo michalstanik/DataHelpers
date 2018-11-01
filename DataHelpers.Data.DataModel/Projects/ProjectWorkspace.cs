@@ -1,6 +1,6 @@
 ﻿namespace DataHelpers.Data.DataModel.Projects
 {
-    public class ProjectWorkspace
+    public class ProjectWorkspace : DBEntity
     {
         public int Id { get; set; }
 

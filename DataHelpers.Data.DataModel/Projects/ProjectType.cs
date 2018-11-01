@@ -2,7 +2,7 @@
 
 namespace DataHelpers.Data.DataModel.Projects
 {
-    public class ProjectType
+    public class ProjectType : DBEntity
     {
         public int Id { get; set; }
 

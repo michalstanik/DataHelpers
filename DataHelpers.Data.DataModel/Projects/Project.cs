@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataHelpers.Data.DataModel.Projects
 {
-    public class Project
+    public class Project : DBEntity
     {
         public Project()
         {

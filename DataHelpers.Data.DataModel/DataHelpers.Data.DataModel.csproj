@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBEntity.cs" />
     <Compile Include="LookupItem.cs" />
     <Compile Include="Projects\Project.cs" />
     <Compile Include="Projects\ProjectComponent.cs" />

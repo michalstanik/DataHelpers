@@ -1,6 +1,9 @@
 ﻿using DataHelpers.Data.DataModel.Projects;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataHelpers.Data.DataAccess
 {
@@ -20,6 +23,25 @@ namespace DataHelpers.Data.DataAccess
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
+
+        public override Task<int> SaveChangesAsync()
+        {
+            var AddedEntities = ChangeTracker.Entries().Where(E => E.State == EntityState.Added).ToList();
+
+            AddedEntities.ForEach(E =>
+            {
+                E.Property("CreationTime").CurrentValue = DateTime.Now;
+            });
+
+            var EditedEntities = ChangeTracker.Entries().Where(E => E.State == EntityState.Modified).ToList();
+
+            EditedEntities.ForEach(E =>
+            {
+                E.Property("ModifiedTime").CurrentValue = DateTime.Now;
+            });
+
+            return base.SaveChangesAsync();
         }
     }
 }
