@@ -64,8 +64,18 @@ namespace DataHelpers.Data.DataAccess.Repository
         {
             foreach (var propertyName in entity.OriginalValues.PropertyNames)
             {
-                var originalValue = entity.GetDatabaseValues().GetValue<object>(propertyName).ToString();
-                var newValue = entity.CurrentValues.GetValue<object>(propertyName).ToString();
+                var originalValue = "Empty";
+                var newValue = "Empty";
+                try
+                {
+                    originalValue = entity.GetDatabaseValues().GetValue<object>(propertyName).ToString();
+                }
+                catch { }
+                try
+                {
+                    newValue = entity.CurrentValues.GetValue<object>(propertyName).ToString();
+                }
+                catch { }
 
                 if (originalValue != newValue)
                 {
