@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DataHelpers.Data.DataModel.Helpers;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,6 +16,7 @@ namespace DataHelpers.Data.DataModel.Projects
 
         [Required]
         [StringLength(50)]
+        [Auditable]
         public string ProjectName { get; set; }
 
         public string ProjectDescription { get; set; }
