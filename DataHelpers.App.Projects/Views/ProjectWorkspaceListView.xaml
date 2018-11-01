@@ -77,7 +77,7 @@
             <Button Content="Save" Width="100" Margin="10"
                     Command="{Binding SaveCommand}"/>
             <Button Content="Delete" Width="100" Margin="10"
-                    Command="{Binding DeleteCommand}"/>
+                    Command="{Binding RemoveWorkspaceCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

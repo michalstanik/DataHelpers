@@ -12,5 +12,6 @@ namespace DataHelpers.Data.DataAccess.Interfaces
         //Project Workspace 
         IEnumerable<ProjectWorkspace> GetProjectWorkspacesForProject(int Id);
         ProjectWorkspace GetProjectWorkspace(int Id);
+        void RemoveProjectWorkspace(ProjectWorkspace model);
     }
 }

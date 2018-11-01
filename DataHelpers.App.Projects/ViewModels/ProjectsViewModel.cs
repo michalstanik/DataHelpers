@@ -2,7 +2,6 @@
 using DataHelpers.App.Infrastructure.Events;
 using DataHelpers.App.Infrastructure.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -28,6 +27,22 @@ namespace DataHelpers.App.Projects.ViewModels
 
             ProjectNavigationViewModel = navigationModel;
         }
+        
+        #region PublicProperties
+        public INavigationViewModel ProjectNavigationViewModel { get; }
+
+        public ObservableCollection<IDetailViewModel> DetailViewModels { get; }
+
+        public IDetailViewModel SelectedDetailViewModel
+        {
+            get { return _selectedDetailViewModel; }
+            set
+            {
+                _selectedDetailViewModel = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion PublicProperties
 
         private void AfterDetailClosed(AfterDetailClosedEventArgs args)
         {
@@ -73,20 +88,6 @@ namespace DataHelpers.App.Projects.ViewModels
             }
 
             SelectedDetailViewModel = detailViewModel;
-        }
-
-        public INavigationViewModel ProjectNavigationViewModel { get; }
-
-        public ObservableCollection<IDetailViewModel> DetailViewModels { get; }
-
-        public IDetailViewModel SelectedDetailViewModel
-        {
-            get { return _selectedDetailViewModel; }
-            set
-            {
-                _selectedDetailViewModel = value;
-                OnPropertyChanged();
-            }
         }
 
         protected override void OnViewLoaded()

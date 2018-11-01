@@ -43,6 +43,22 @@ namespace DataHelpers.App.Projects.ViewModels
 
             SelectPath = new DelegateCommand(SelectFileExecute);
             NewOpenDetailsCommand = new DelegateCommand<int?>(OpenNewWorkspaceFlyout);
+            RemoveWorkspaceCommand = new DelegateCommand(OnRemoveWorkspaceExecute, OnRemoveWorkspaceCanExecute);
+        }
+
+        private bool OnRemoveWorkspaceCanExecute()
+        {
+            return SelectedProjectWorkspace != null;
+        }
+
+        private void OnRemoveWorkspaceExecute()
+        {
+            SelectedProjectWorkspace.PropertyChanged -= ProjectWorkspaceWrapper_PropertyChanged;
+            _projectRepository.RemoveProjectWorkspace(SelectedProjectWorkspace.Model);
+            ProjectWorkspace.Remove(SelectedProjectWorkspace);
+            SelectedProjectWorkspace = null;
+            HasChanges = _projectRepository.HasChanges();
+            ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
         }
 
         private void OpenNewWorkspaceFlyout(int? id)
@@ -183,7 +199,7 @@ namespace DataHelpers.App.Projects.ViewModels
             {
                 _selectedProjectWorkspace = value;
                 OnPropertyChanged();
-                //((DelegateCommand)RemoveComponentCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)RemoveWorkspaceCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -191,6 +207,7 @@ namespace DataHelpers.App.Projects.ViewModels
 
         public ICommand SelectPath { get; }
         public ICommand NewOpenDetailsCommand { get; set; }
+        public ICommand RemoveWorkspaceCommand { get; }
         #endregion
 
         private void SetTitle()

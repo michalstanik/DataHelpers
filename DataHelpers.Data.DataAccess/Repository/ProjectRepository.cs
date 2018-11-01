@@ -36,5 +36,10 @@ namespace DataHelpers.Data.DataAccess.Repository
         {
             Context.ProjectComponents.Remove(model);
         }
+
+        public void RemoveProjectWorkspace(ProjectWorkspace model)
+        {
+            Context.ProjectWorkspaces.Remove(model);
+        }
     }
 }
