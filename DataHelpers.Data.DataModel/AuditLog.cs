@@ -6,10 +6,10 @@ namespace DataHelpers.Data.DataModel
     {
         public int Id { get; set; }
         public string EntityName { get; set; }
+        public int EntityId { get; set; } 
         public string FieldName { get; set; }
         public DateTime ChangeTime { get; set; }
         public string PreviousValue { get; set; }
         public string NewValue { get; set; }
-
     }
 }

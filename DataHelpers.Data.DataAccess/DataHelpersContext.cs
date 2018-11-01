@@ -34,10 +34,7 @@ namespace DataHelpers.Data.DataAccess
             var AddedEntities = ChangeTracker.Entries().Where(E => E.State == EntityState.Added).ToList();
 
             AddedEntities.ForEach(E =>
-            {
-                if(IsAuditableEntity(E))            
-                    CreateAuditLogEntry(E);
-                
+            {               
                 E.Property("CreationTime").CurrentValue = DateTime.Now;
             });
 
@@ -56,12 +53,26 @@ namespace DataHelpers.Data.DataAccess
 
         private void CreateAuditLogEntry(DbEntityEntry entity)
         {
-            var auditEntry = new AuditLog()
+            foreach (var propertyName in entity.OriginalValues.PropertyNames)
             {
-                EntityName = entity.Entity.ToString(),
-                ChangeTime = DateTime.Now
-            };
-            base.Set<AuditLog>().Add(auditEntry);
+                var originalValue = entity.GetDatabaseValues().GetValue<object>(propertyName).ToString();
+                var newValue = entity.CurrentValues.GetValue<object>(propertyName).ToString();
+
+                if (originalValue != newValue)
+                {
+                    var auditEntry = new AuditLog()
+                    {
+                        EntityName = entity.Entity.ToString(),
+                        ChangeTime = DateTime.Now,
+                        FieldName = propertyName,
+                        NewValue = newValue,
+                        PreviousValue = originalValue,
+                        EntityId = (int)entity.CurrentValues.GetValue<object>("Id")
+
+                };
+                    base.Set<AuditLog>().Add(auditEntry);
+                }
+            }
         }
 
         //TODO: Check only Auditable properties

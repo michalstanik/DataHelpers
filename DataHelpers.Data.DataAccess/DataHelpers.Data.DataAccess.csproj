@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201811011541260_AuditEntity.Designer.cs">
       <DependentUpon>201811011541260_AuditEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811011757081_Audit-EntityId.cs" />
+    <Compile Include="Migrations\201811011757081_Audit-EntityId.Designer.cs">
+      <DependentUpon>201811011757081_Audit-EntityId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
@@ -94,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811011541260_AuditEntity.resx">
       <DependentUpon>201811011541260_AuditEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811011757081_Audit-EntityId.resx">
+      <DependentUpon>201811011757081_Audit-EntityId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
