@@ -57,6 +57,7 @@
     <Compile Include="Base\UserControlViewBase.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="Commands\ApplicationCommands.cs" />
+    <Compile Include="Constants\AuditAttributeNames.cs" />
     <Compile Include="Constants\FlyoutNames.cs" />
     <Compile Include="Constants\IconNames.cs" />
     <Compile Include="Constants\RegionNames.cs" />

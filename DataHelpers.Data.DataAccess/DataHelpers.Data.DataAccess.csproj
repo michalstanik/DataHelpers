@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataHelpersContext.cs" />
+    <Compile Include="Helpers\AuditLogHelpers.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IProjectLookupDataService.cs" />
     <Compile Include="Interfaces\IProjectRepository.cs" />
@@ -85,6 +86,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataHelpers.App.Infrastructure\DataHelpers.App.Infrastructure.csproj">
+      <Project>{DA4804FD-0B6A-4E11-B3A2-A128D6263CD7}</Project>
+      <Name>DataHelpers.App.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataHelpers.Data.DataModel\DataHelpers.Data.DataModel.csproj">
       <Project>{E49CBF07-F05D-4E7E-BDC1-D17DBD887C9D}</Project>
       <Name>DataHelpers.Data.DataModel</Name>

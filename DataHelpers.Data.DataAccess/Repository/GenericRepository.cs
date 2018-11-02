@@ -5,6 +5,8 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
+using DataHelpers.Data.DataAccess.Helpers;
+using DataHelpers.App.Infrastructure.Constants;
 
 namespace DataHelpers.Data.DataAccess.Repository
 {
@@ -93,8 +95,7 @@ namespace DataHelpers.Data.DataAccess.Repository
                 }
             }
         }
-
-        private bool IsAuditableField(DbEntityEntry entity, string propertyName)
+        public static bool IsAuditableField(DbEntityEntry entity, string propertyName)
         {
             var entityType = entity.Entity.GetType();
             var fieldsWithAttribiute = entityType.GetProperty(propertyName);
@@ -102,19 +103,19 @@ namespace DataHelpers.Data.DataAccess.Repository
             {
                 foreach (var attribute in fieldsWithAttribiute.GetCustomAttributes(true))
                 {
-                    if (attribute.ToString() == "DataHelpers.Data.DataModel.Helpers.Auditable") return true;
-                } 
+                    if (attribute.ToString() == AuditAttributeNames.Auditable) return true;
+                }
             }
             return false;
         }
 
-        private bool IsAuditableEntity(DbEntityEntry entity)
+        public static bool IsAuditableEntity(DbEntityEntry entity)
         {
             var entityType = entity.Entity.GetType();
 
             foreach (var attribute in entityType.GetCustomAttributes(true))
             {
-                if (attribute.ToString() == "DataHelpers.Data.DataModel.Helpers.Auditable") return true;
+                if (attribute.ToString() == AuditAttributeNames.Auditable) return true;
             }
             return false;
         }
