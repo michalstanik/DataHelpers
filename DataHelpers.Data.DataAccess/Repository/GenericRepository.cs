@@ -62,7 +62,6 @@ namespace DataHelpers.Data.DataAccess.Repository
 
         private void CreateAuditLogEntry(DbEntityEntry entity)
         {
-            var type = entity.Entity.GetType();
             foreach (var propertyName in entity.OriginalValues.PropertyNames)
             {
                 var originalValue = "Empty";
@@ -78,7 +77,7 @@ namespace DataHelpers.Data.DataAccess.Repository
                 }
                 catch { }
 
-                if (originalValue != newValue)
+                if (originalValue != newValue && IsAuditableField(entity, propertyName))
                 {
                     var auditEntry = new AuditLog()
                     {
@@ -89,17 +88,35 @@ namespace DataHelpers.Data.DataAccess.Repository
                         NewValue = newValue,
                         PreviousValue = originalValue,
                         EntityId = (int)entity.CurrentValues.GetValue<object>("Id")
-
                     };
                     Context.Set<AuditLog>().Add(auditEntry);
                 }
             }
         }
 
-        //TODO: Check only Auditable properties
+        private bool IsAuditableField(DbEntityEntry entity, string propertyName)
+        {
+            var entityType = entity.Entity.GetType();
+            var fieldsWithAttribiute = entityType.GetProperty(propertyName);
+            if (fieldsWithAttribiute != null)
+            {
+                foreach (var attribute in fieldsWithAttribiute.GetCustomAttributes(true))
+                {
+                    if (attribute.ToString() == "DataHelpers.Data.DataModel.Helpers.Auditable") return true;
+                } 
+            }
+            return false;
+        }
+
         private bool IsAuditableEntity(DbEntityEntry entity)
         {
-            return true;
+            var entityType = entity.Entity.GetType();
+
+            foreach (var attribute in entityType.GetCustomAttributes(true))
+            {
+                if (attribute.ToString() == "DataHelpers.Data.DataModel.Helpers.Auditable") return true;
+            }
+            return false;
         }
     }
 }

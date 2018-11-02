@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataHelpers.Data.DataModel.Projects
 {
+    [Auditable]
     public class Project : DBEntity
     {
         public Project()
