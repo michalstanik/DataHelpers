@@ -17,13 +17,16 @@ namespace DataHelpers.Data.DataAccess
             
         }
 
+        //Projects
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectType> ProjectTypes { get; set; }
         public DbSet<ProjectComponent> ProjectComponents { get; set; }
         public DbSet<ProjectWorkspace> ProjectWorkspaces { get; set; }
 
+        //Users
         public DbSet<User> Users { get; set; }
         public DbSet<Domain> Doamains { get; set; }
+        public DbSet<UserAccount> UserAccounts { get; set; }
 
         public DbSet<AuditLog> AuditLogs { get; set; }
 

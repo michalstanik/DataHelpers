@@ -74,6 +74,10 @@
     <Compile Include="Migrations\201811021737518_UserEntity.Designer.cs">
       <DependentUpon>201811021737518_UserEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811031541372_UserAccountEntity.cs" />
+    <Compile Include="Migrations\201811031541372_UserAccountEntity.Designer.cs">
+      <DependentUpon>201811031541372_UserAccountEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
@@ -122,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811021737518_UserEntity.resx">
       <DependentUpon>201811021737518_UserEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811031541372_UserAccountEntity.resx">
+      <DependentUpon>201811031541372_UserAccountEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

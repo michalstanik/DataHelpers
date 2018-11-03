@@ -11,7 +11,7 @@
              d:DesignHeight="300" d:DesignWidth="300"
                 Position="Left"
                 AreAnimationsEnabled="True"
-                Header="Settings"
+                Header="User Authorization"
                 HorizontalContentAlignment="Stretch"
                 Theme="Inverse"
                 IsModal="True">

@@ -10,5 +10,8 @@
 
         public int? DomainId { get; set; }
         public Domain Domain { get; set; }
+
+        public int? UserAccountId { get; set; }
+        public UserAccount UserAccount { get; set; }
     }
 }
