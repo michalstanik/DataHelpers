@@ -1,14 +1,17 @@
 ﻿using DataHelpers.App.Infrastructure.Commands;
+using DataHelpers.App.Infrastructure.Constants;
 using DataHelpers.App.Infrastructure.Interfaces;
+using DataHelpers.App.Infrastructure.Services;
 using DataHelpers.App.Projects;
 using DataHelpers.App.Shell.Services;
 using DataHelpers.App.Shell.Views;
+using DataHelpers.Data.DataAccess.Interfaces;
+using DataHelpers.Data.DataAccess.Repository;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 using System;
 using System.Security.Principal;
-using System.Threading;
 using System.Windows;
 
 namespace DataHelpers.App.Shell
@@ -30,16 +33,20 @@ namespace DataHelpers.App.Shell
             var regionManager = this.Container.Resolve<IRegionManager>();
             if (regionManager != null)
             {
-                
+                regionManager.RegisterViewWithRegion(RegionNames.FlyoutRegion, typeof(UserAuthenticationFlyoutView));
             }
 
+            AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
             App.Current.MainWindow.Show();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+
             containerRegistry.Register<IMessageDialogService, MessageDialogService>();
             containerRegistry.Register<IApplicationCommands, ApplicationCommandsProxy>();
+            containerRegistry.RegisterInstance<IFlyoutService>(Container.Resolve<FlyoutService>());
+            containerRegistry.Register<IUserRepository, UserRepository>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
@@ -57,8 +64,6 @@ namespace DataHelpers.App.Shell
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
-            var check = Thread.CurrentPrincipal.Identity.IsAuthenticated;
         }
 
         //TODO: Integrate with file log 

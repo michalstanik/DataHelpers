@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\UserAuthenticationFlyoutViewModel.cs" />
+    <Compile Include="Views\UserAuthenticationFlyoutView.xaml.cs">
+      <DependentUpon>UserAuthenticationFlyoutView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,6 +74,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\UserAuthenticationFlyoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -123,6 +131,14 @@
     <ProjectReference Include="..\DataHelpers.App.Projects\DataHelpers.App.Projects.csproj">
       <Project>{B2C2893D-C1A5-41FF-9D42-7F65CC2D92DB}</Project>
       <Name>DataHelpers.App.Projects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataHelpers.Data.DataAccess\DataHelpers.Data.DataAccess.csproj">
+      <Project>{EEB218A0-C4C2-4EC7-8A75-930A5D58506B}</Project>
+      <Name>DataHelpers.Data.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataHelpers.Data.DataModel\DataHelpers.Data.DataModel.csproj">
+      <Project>{E49CBF07-F05D-4E7E-BDC1-D17DBD887C9D}</Project>
+      <Name>DataHelpers.Data.DataModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
