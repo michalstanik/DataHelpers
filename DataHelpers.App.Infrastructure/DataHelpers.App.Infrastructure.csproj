@@ -69,6 +69,7 @@
     <Compile Include="Events\OpenDetailViewEvent.cs" />
     <Compile Include="Helpers\FileDirectoryHelpers.cs" />
     <Compile Include="Helpers\FileDirectoryOutput.cs" />
+    <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Interfaces\IDetailViewModel.cs" />
     <Compile Include="Interfaces\IFlyoutService.cs" />
     <Compile Include="Interfaces\IFlyoutView.cs" />
@@ -104,7 +105,12 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DataHelpers.Data.DataModel\DataHelpers.Data.DataModel.csproj">
+      <Project>{E49CBF07-F05D-4E7E-BDC1-D17DBD887C9D}</Project>
+      <Name>DataHelpers.Data.DataModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EntityFramework">
       <Version>6.2.0</Version>

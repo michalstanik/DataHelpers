@@ -42,8 +42,8 @@ namespace DataHelpers.App.Shell
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
             containerRegistry.Register<IMessageDialogService, MessageDialogService>();
+            containerRegistry.Register<IAuthenticationService, AuthenticationService>();
             containerRegistry.Register<IApplicationCommands, ApplicationCommandsProxy>();
             containerRegistry.RegisterInstance<IFlyoutService>(Container.Resolve<FlyoutService>());
             containerRegistry.Register<IUserRepository, UserRepository>();

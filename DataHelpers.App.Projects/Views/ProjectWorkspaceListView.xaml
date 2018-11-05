@@ -60,11 +60,22 @@
                 <DataGridTextColumn Header="Path Name" Width="Auto"
                                         ElementStyle="{StaticResource DataGridColumnStyle}"
                                         EditingElementStyle="{StaticResource DataGridEditingColumnStyle}"
-                                        Binding="{Binding WorkspacePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        Binding="{Binding WorkspacePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style >
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Left"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Files on path" Width="Auto" IsReadOnly="True"
                                         ElementStyle="{StaticResource DataGridColumnStyle}"
                                         EditingElementStyle="{StaticResource DataGridEditingColumnStyle}"
                                         Binding="{Binding FilesCounter, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style >
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Error Info" Width="Auto" IsReadOnly="True" 
                                         ElementStyle="{StaticResource DataGridColumnStyle}"

@@ -23,6 +23,7 @@ namespace DataHelpers.App.Shell.ViewModels
 
             if (appUser != null)
             {
+                //Store Information about login
                 //If user is known, check if account exist
                 //Let im LogIn automatically - and hide slider and update header
             }
