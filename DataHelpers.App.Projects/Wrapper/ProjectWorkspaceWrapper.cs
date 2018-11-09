@@ -1,6 +1,7 @@
 ﻿using DataHelpers.App.Infrastructure.Helpers;
 using DataHelpers.App.Infrastructure.Wrapper;
 using DataHelpers.Data.DataModel.Projects;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataHelpers.App.Projects.Wrapper
@@ -87,6 +88,19 @@ namespace DataHelpers.App.Projects.Wrapper
             }
         }
 
-        
+        protected override IEnumerable<string> ValidateProperty(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case nameof(ErrorMessage):
+                    if (ErrorMessage != null)
+                    {
+                        yield return ErrorMessage.ToString();
+                    }
+                    break;
+            }
+        }
+
+
     }
 }

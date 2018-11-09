@@ -16,6 +16,32 @@
                 Theme="Inverse"
                 IsModal="True">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding AuthenticationStatus}"></TextBlock>
+        <Grid Grid.Row="1" Visibility="{Binding ShowHideLoginForm, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock>UserName</TextBlock>
+            <TextBlock Grid.Row="1">Password</TextBlock>
+            <Button Grid.Row="2">Login</Button>
+        </Grid>
 
+        <Grid Grid.Row="2" Visibility="{Binding ShowHideRegistrationForm, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock>UserName</TextBlock>
+            <TextBlock Grid.Row="1">Password</TextBlock>
+            <Button Grid.Row="2">Login</Button>
+        </Grid>
     </Grid>
 </inf:FlyoutViewBase>

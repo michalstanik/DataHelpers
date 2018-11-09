@@ -4,7 +4,6 @@ using DataHelpers.App.Infrastructure.Constants;
 using DataHelpers.App.Infrastructure.Services;
 using Prism.Commands;
 using Prism.Regions;
-using System.Threading;
 
 namespace DataHelpers.App.Shell.ViewModels
 {

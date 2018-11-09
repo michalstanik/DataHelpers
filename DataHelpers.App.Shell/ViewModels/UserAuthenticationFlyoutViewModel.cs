@@ -1,4 +1,5 @@
 ﻿using DataHelpers.App.Infrastructure.Base;
+using DataHelpers.App.Infrastructure.Constants;
 using DataHelpers.Data.DataAccess.Interfaces;
 using System.Threading;
 
@@ -7,12 +8,46 @@ namespace DataHelpers.App.Shell.ViewModels
     public class UserAuthenticationFlyoutViewModel : ViewModelBase
     {
         private readonly IUserRepository _userRepository;
+        private string _authenticationStatus;
+        private bool _showHideRegistrationForm;
+        private bool _showHideLoginForm;
 
         public UserAuthenticationFlyoutViewModel(IUserRepository userRepository)
         {
             
             _userRepository = userRepository;
         }
+
+        public string AuthenticationStatus
+        {
+            get { return _authenticationStatus; }
+            private set
+            {
+                _authenticationStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool ShowHideRegistrationForm
+        {
+            get { return _showHideRegistrationForm; }
+            private set
+            {
+                _showHideRegistrationForm = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool ShowHideLoginForm
+        {
+            get { return _showHideLoginForm; }
+            private set
+            {
+                _showHideLoginForm = value;
+                OnPropertyChanged();
+            }
+        }
+
         protected override void OnViewLoaded()
         {
             base.OnViewLoaded();
@@ -29,6 +64,9 @@ namespace DataHelpers.App.Shell.ViewModels
             }
             else
             {
+                AuthenticationStatus = $"{user}: {UserMessages.AuthUserUnknown}";
+                ShowHideRegistrationForm = true;
+                ShowHideLoginForm = true;
                 //If user is not known
                 //Let im associate user with account
                 //If account does not exists yet - create new one and assosiate
