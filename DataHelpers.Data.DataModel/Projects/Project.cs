@@ -12,6 +12,7 @@ namespace DataHelpers.Data.DataModel.Projects
         {
             ProjectComponents = new Collection<ProjectComponent>();
             ProjectWorkspaces = new Collection<ProjectWorkspace>();
+            ProjectFiles = new Collection<ProjectFiles>();
         }
         public int Id { get; set; }
 
@@ -28,6 +29,7 @@ namespace DataHelpers.Data.DataModel.Projects
 
         public ICollection<ProjectComponent> ProjectComponents { get; set; }
         public ICollection<ProjectWorkspace> ProjectWorkspaces { get; set; }
+        public ICollection<ProjectFiles> ProjectFiles { get; set; }
 
     }
 }

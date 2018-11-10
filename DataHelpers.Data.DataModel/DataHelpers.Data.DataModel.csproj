@@ -48,6 +48,7 @@
     <Compile Include="LookupItem.cs" />
     <Compile Include="Projects\Project.cs" />
     <Compile Include="Projects\ProjectComponent.cs" />
+    <Compile Include="Projects\ProjectFiles.cs" />
     <Compile Include="Projects\ProjectType.cs" />
     <Compile Include="Projects\ProjectWorkspace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

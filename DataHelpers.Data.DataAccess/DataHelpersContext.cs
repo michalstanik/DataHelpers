@@ -22,6 +22,7 @@ namespace DataHelpers.Data.DataAccess
         public DbSet<ProjectType> ProjectTypes { get; set; }
         public DbSet<ProjectComponent> ProjectComponents { get; set; }
         public DbSet<ProjectWorkspace> ProjectWorkspaces { get; set; }
+        public DbSet<ProjectFiles> ProjectFiles { get; set; }
 
         //Users
         public DbSet<User> Users { get; set; }
