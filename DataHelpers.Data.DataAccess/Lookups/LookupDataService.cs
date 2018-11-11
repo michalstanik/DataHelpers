@@ -30,7 +30,6 @@ namespace DataHelpers.Data.DataAccess.Lookups
                         Id = f.Id,
                         DisplayMember = f.ProjectName,
                         Entity = nameof(Project)
-
                     })
                     .ToListAsync();
             }
@@ -73,6 +72,22 @@ namespace DataHelpers.Data.DataAccess.Lookups
                     }
                 }
 
+                var projectFiles = ctx.ProjectFiles.Where(p => p.ProjectId == projectId).ToList();
+
+                if (projectFiles.Count() != 0)
+                {
+                    foreach (var item in projectFiles)
+                    {
+                        relatedEntites.Add(new LookupItem
+                        {
+                            Id = item.Id,
+                            DisplayMember = item.Id.ToString(),
+                            Entity = nameof(ProjectFiles),
+                            RelatedEntities = null
+                        });
+
+                    }
+                }
             }
 
             return  relatedEntites;

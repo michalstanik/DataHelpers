@@ -21,9 +21,7 @@ namespace DataHelpers.App.Projects.ViewModels
         {
             _projectLookupService = projectLookupService;
             Projects = new ObservableCollection<NavigationItemViewModel>();
-            //var itemProvider = new ItemProvider();
             _rootDirectoryItem = new NavigationDirectoryItemViewModel(0, "Root", "Root");
-            //DirItems = itemProvider.DirItems;
 
         }
         public async Task LoadAsync()
@@ -56,6 +54,12 @@ namespace DataHelpers.App.Projects.ViewModels
 
                     tempProject.AddDirItem(groupItemComponents);
 
+                    var groupItemFiles = new NavigationDirectoryItemViewModel(
+                        item.Id, TreeViewNames.Files,
+                        nameof(ProjectFilesListViewModel));
+
+                    tempProject.AddDirItem(groupItemFiles);
+
                     foreach (var relatedEntitiesItem in relatedEntities)
                     {
                         switch (relatedEntitiesItem.Entity)
@@ -79,6 +83,13 @@ namespace DataHelpers.App.Projects.ViewModels
                                     (relatedEntitiesItem.Id,
                                     relatedEntitiesItem.DisplayMember,
                                     nameof(ProjectComponentViewModel)));
+                                break;
+
+                            case nameof(ProjectFiles):
+                                groupItemFiles.AddDirItem(new NavigationDirectoryItemViewModel
+                                    (relatedEntitiesItem.Id,
+                                    relatedEntitiesItem.DisplayMember,
+                                    nameof(ProjectFileViewModel)));
                                 break;
 
                             default:

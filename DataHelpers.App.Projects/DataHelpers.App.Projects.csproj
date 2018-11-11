@@ -67,6 +67,8 @@
     <Compile Include="ViewModels\ProjectComponentsListViewModel.cs" />
     <Compile Include="ViewModels\ProjectComponentViewModel.cs" />
     <Compile Include="ViewModels\ProjectDetailViewModel.cs" />
+    <Compile Include="ViewModels\ProjectFilesListViewModel.cs" />
+    <Compile Include="ViewModels\ProjectFileViewModel.cs" />
     <Compile Include="ViewModels\ProjectNavigationViewModel.cs" />
     <Compile Include="ViewModels\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\ProjectWorkspaceDetailsFlyoutViewModel.cs" />
