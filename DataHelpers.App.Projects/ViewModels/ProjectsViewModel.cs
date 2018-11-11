@@ -11,14 +11,17 @@ namespace DataHelpers.App.Projects.ViewModels
     {
         private readonly Func<IProjectDetailViewModel> _projectDetailViewModelCreator;
         private readonly Func<IProjectWorkspaceListViewModel> _projectWokspaceListViewModelCreator;
+        private readonly Func<IProjectFilesListViewModel> _projectFilesListViewModelCreator;
         private IDetailViewModel _selectedDetailViewModel;
 
         public ProjectsViewModel(INavigationViewModel navigationModel,
             Func<IProjectDetailViewModel> projectDetailViewModelCreator,
-            Func<IProjectWorkspaceListViewModel> projectWokspaceListViewModelCreator)
+            Func<IProjectWorkspaceListViewModel> projectWokspaceListViewModelCreator,
+            Func<IProjectFilesListViewModel> projectFilesListViewModelCreator)
         {
             _projectDetailViewModelCreator = projectDetailViewModelCreator;
             _projectWokspaceListViewModelCreator = projectWokspaceListViewModelCreator;
+            _projectFilesListViewModelCreator = projectFilesListViewModelCreator;
             DetailViewModels = new ObservableCollection<IDetailViewModel>();
 
             EventAggregator.GetEvent<OpenDetailViewEvent>().Subscribe(OnOpenDetailView);
@@ -79,6 +82,9 @@ namespace DataHelpers.App.Projects.ViewModels
                         break;
                     case nameof(ProjectWorkspaceListViewModel):
                         detailViewModel = _projectWokspaceListViewModelCreator();
+                        break;
+                    case nameof(ProjectFilesListViewModel):
+                        detailViewModel = _projectFilesListViewModelCreator();
                         break;
                     default:
                         break;

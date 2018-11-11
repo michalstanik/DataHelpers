@@ -42,6 +42,7 @@ namespace DataHelpers.App.Projects
 
             containerRegistry.Register<IProjectDetailViewModel, ProjectDetailViewModel>();
             containerRegistry.Register<IProjectWorkspaceListViewModel, ProjectWorkspaceListViewModel>();
+            containerRegistry.Register<IProjectFilesListViewModel, ProjectFilesListViewModel>();
             containerRegistry.Register<object, ProjectsView>("ProjectsView");
         }
 

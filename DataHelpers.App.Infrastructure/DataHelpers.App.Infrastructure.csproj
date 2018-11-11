@@ -76,6 +76,7 @@
     <Compile Include="Interfaces\IMessageDialogService.cs" />
     <Compile Include="Interfaces\INavigationViewModel.cs" />
     <Compile Include="Interfaces\IProjectDetailViewModel.cs" />
+    <Compile Include="Interfaces\IProjectFilesListViewModel.cs" />
     <Compile Include="Interfaces\IProjectWorkspaceListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

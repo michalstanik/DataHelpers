@@ -77,6 +77,9 @@
     <Compile Include="Views\ProjectDetailView.xaml.cs">
       <DependentUpon>ProjectDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProjectFilesListView.xaml.cs">
+      <DependentUpon>ProjectFilesListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProjectNavigationView.xaml.cs">
       <DependentUpon>ProjectNavigationView.xaml</DependentUpon>
     </Compile>
@@ -104,6 +107,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\ProjectDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProjectFilesListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

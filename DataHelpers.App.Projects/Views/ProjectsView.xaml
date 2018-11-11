@@ -18,6 +18,9 @@
         <DataTemplate DataType="{x:Type viewModel:ProjectWorkspaceListViewModel}">
             <local:ProjectWorkspaceListView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ProjectFilesListViewModel}">
+            <local:ProjectFilesListView/>
+        </DataTemplate>
     </inf:UserControlViewBase.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
