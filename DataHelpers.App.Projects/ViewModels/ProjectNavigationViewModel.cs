@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using DataHelpers.App.Infrastructure.Base;
+﻿using DataHelpers.App.Infrastructure.Base;
 using DataHelpers.App.Infrastructure.Constants;
 using DataHelpers.App.Infrastructure.Interfaces;
 using DataHelpers.App.Infrastructure.ViewModels;
 using DataHelpers.Data.DataAccess.Interfaces;
 using DataHelpers.Data.DataModel.Projects;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace DataHelpers.App.Projects.ViewModels
 {
@@ -28,8 +27,6 @@ namespace DataHelpers.App.Projects.ViewModels
         {
             var childList = new List<NavigationDirectoryItemViewModel>();
             var proejctlookup = await _projectLookupService.GetProjectLookupAsync();
-
-            //Projects.Clear();
 
             foreach (var item in proejctlookup)
             {

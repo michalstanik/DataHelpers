@@ -80,6 +80,8 @@ namespace DataHelpers.App.Projects.ViewModels
                     case nameof(ProjectDetailViewModel):
                         detailViewModel = _projectDetailViewModelCreator();
                         break;
+                    case nameof(ProjectWorkspaceViewModel):
+                        break;
                     case nameof(ProjectWorkspaceListViewModel):
                         detailViewModel = _projectWokspaceListViewModelCreator();
                         break;
@@ -89,7 +91,10 @@ namespace DataHelpers.App.Projects.ViewModels
                     default:
                         break;
                 }
-                await detailViewModel.LoadAsync(args.Id);
+                if(detailViewModel != null)
+                {
+                    await detailViewModel.LoadAsync(args.Id);
+                }
                 DetailViewModels.Add(detailViewModel);
             }
 
